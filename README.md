@@ -46,8 +46,9 @@
 
 ### 2. Advanced Memory Management
 - **Manual Memory Management:** "Discuss scenarios where you might use `unowned` or `weak` references in Swift. What are the implications of choosing one over the other?"
+  - "In Swift, unowned and weak are used to prevent retain cycles. Use unowned when you are sure the reference will never be nil during its lifetime, and weak when there is a possibility for that reference to become nil. I always use weak for delegate references and unowned in closure captures where I know the captured object won’t be deallocated."
 - **Memory Leaks and Profiling:** "How do you identify and fix memory leaks in Swift applications? What tools do you use for memory profiling?"
-
+  - "I use Instruments, particularly the Leaks and Allocation tools, to track down and fix memory leaks. A common practice is to review closure captures and delegate patterns, ensuring all references are weak where necessary, and using unowned safely."
 ### 3. Swift Runtime and Compilation
 - **Swift's Compilation Process:** "Explain how Swift code is compiled. What is the role of LLVM in the Swift compilation process?"
 - **Inline Attributes:** "Discuss the use of `@inline(__always)` and `@inline(never)` attributes in Swift. When would you use them, and what impact do they have on performance?"
