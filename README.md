@@ -1,6 +1,6 @@
 # InterviewQuestions
 
-## For Junior Engineers
+## For Junior/Mid Engineers
 
 ### 1. Technical Skills
 - **Swift and Objective-C:** "Can you discuss the major differences between Swift and Objective-C? Why might you choose one over the other in a new project?"
