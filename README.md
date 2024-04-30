@@ -37,58 +37,84 @@
 
 ### 1. Generics and Advanced Type Systems
 - **Complex Generics:** "Can you explain how you have used generics to solve a problem in your projects? What are the benefits and limitations of using generics in Swift?"
-  - "I've used generics to create highly reusable data structures and functions. For example, I developed a generic network layer that can handle various types of requests and responses without repeating code. The main benefit is code reusability and type safety, while a limitation is that it can sometimes complicate the design, making it harder for less experienced developers to understand."
+
+   - "I've used generics to create highly reusable data structures and functions. For example, I developed a generic network layer that can handle various types of requests and responses without repeating code. The main benefit is code reusability and type safety, while a limitation is that it can sometimes complicate the design, making it harder for less experienced developers to understand."
 - **Type Erasure:** "Discuss what type erasure is and provide an example of where and why you might use it in Swift."
+
   - "Type erasure in Swift allows us to work around limitations associated with protocols with associated types, making them more flexible. For example, I used type erasure to hide the specific type of a generic publisher in a reactive programming model, enabling it to be used more dynamically across the app."
 
 - **Associated Types:** "Explain associated types in protocols. How do they enable more flexible and reusable code?"
+
   - "Associated types are used in defining protocols that can’t specify exact types of properties or methods until they’re adopted. They enable protocols to be very flexible. For example, in a protocol that requires a data source, the associated type allows each conformer to specify the type of data it will handle, thus customizing the protocol to its needs."
 
 ### 2. Advanced Memory Management
 - **Manual Memory Management:** "Discuss scenarios where you might use `unowned` or `weak` references in Swift. What are the implications of choosing one over the other?"
-  - "In Swift, unowned and weak are used to prevent retain cycles. Use unowned when you are sure the reference will never be nil during its lifetime, and weak when there is a possibility for that reference to become nil. I always use weak for delegate references and unowned in closure captures where I know the captured object won’t be deallocated."
+
+   - "In Swift, unowned and weak are used to prevent retain cycles. Use unowned when you are sure the reference will never be nil during its lifetime, and weak when there is a possibility for that reference to become nil. I always use weak for delegate references and unowned in closure captures where I know the captured object won’t be deallocated."
+
 - **Memory Leaks and Profiling:** "How do you identify and fix memory leaks in Swift applications? What tools do you use for memory profiling?"
+
   - "I use Instruments, particularly the Leaks and Allocation tools, to track down and fix memory leaks. A common practice is to review closure captures and delegate patterns, ensuring all references are weak where necessary, and using unowned safely."
 ### 3. Swift Runtime and Compilation
 - **Swift's Compilation Process:** "Explain how Swift code is compiled. What is the role of LLVM in the Swift compilation process?"
-  - "Swift code is compiled using the LLVM compiler framework, which converts Swift code into optimized machine code. LLVM performs several optimizations and finally compiles the Swift Intermediate Language (SIL) into binary code. This process ensures Swift's performance and type safety."
+
+   - "Swift code is compiled using the LLVM compiler framework, which converts Swift code into optimized machine code. LLVM performs several optimizations and finally compiles the Swift Intermediate Language (SIL) into binary code. This process ensures Swift's performance and type safety."
+
 - **Inline Attributes:** "Discuss the use of `@inline(__always)` and `@inline(never)` attributes in Swift. When would you use them, and what impact do they have on performance?"
+
   - "The `@inline(__always)` attribute forces the compiler to inline a function to improve performance by eliminating function call overhead. Conversely, @inline(never) prevents inlining. These are used judiciously to balance between code size and speed, particularly in performance-critical code paths."
 
 ### 4. Metaprogramming and Reflection
 - **Reflection:** "How do you use Swift's Mirror API? Provide a practical example where reflection is necessary or beneficial."
+
   - "Swift’s Mirror API allows for introspection of types at runtime, which is useful for debugging or when implementing serialization frameworks. For example, I used Mirror to develop a generic JSON serializer that can introspect model properties and serialize them without needing manual encoding logic."
+
 - **Dynamic Features:** "Swift is statically typed, but are there ways to achieve dynamic behavior similar to Objective-C's runtime features? How would you implement such functionality?"
-  - "While Swift does not support the same level of dynamic behavior as Objective-C, features like dynamicCallable and dynamicMemberLookup provide some capabilities. For interfacing with dynamic languages or APIs, such as scripting languages or JSON manipulation, these features are invaluable."
+
+   - "While Swift does not support the same level of dynamic behavior as Objective-C, features like dynamicCallable and dynamicMemberLookup provide some capabilities. For interfacing with dynamic languages or APIs, such as scripting languages or JSON manipulation, these features are invaluable."
 
 ### 5. Advanced Concurrency
 - **Deadlock Avoidance:** "Discuss strategies to avoid deadlocks in concurrent programming with Swift."
+
   - "To avoid deadlocks, I ensure that locks are well-ordered and avoid holding multiple locks at once. Additionally, using modern Swift Concurrency features like async/await and actors, which manage concurrency more safely, helps prevent such issues."
+
 - **Concurrency Design Patterns:** "What design patterns do you find most effective for building robust and scalable concurrent applications in Swift?"
-  - "In implementing concurrency, I often use the Actor model, especially in Swift 5.5 and above, because it encapsulates state in a way that it's only accessible via asynchronous methods, effectively preventing race conditions and making concurrent designs safer and more predictable."
+
+   - "In implementing concurrency, I often use the Actor model, especially in Swift 5.5 and above, because it encapsulates state in a way that it's only accessible via asynchronous methods, effectively preventing race conditions and making concurrent designs safer and more predictable."
     
 ### 6. Advanced Swift Concurrency
 - **Actors and Data Races:** "Can you explain the actor model in Swift Concurrency? How do actors help prevent data races?"
-  - "Actors are a Swift feature that protect mutable state by ensuring that only one piece of code can access that state at a time. This model simplifies writing safe concurrent code as it avoids data races by design."
+
+   - "Actors are a Swift feature that protect mutable state by ensuring that only one piece of code can access that state at a time. This model simplifies writing safe concurrent code as it avoids data races by design."
+
 - **Task Prioritization:** "How does task prioritization work in Swift Concurrency, and what are its implications for application performance?"
+
   - "Swift's task prioritization allows tasks to be prioritized, ensuring critical work is processed faster. For instance, user-interactive tasks can be prioritized over background tasks. This helps in maintaining a responsive UI while performing background computations."
 
 ### 7. Module Stability and ABI
 - **ABI Stability:** "What is ABI stability in Swift, and why is it important? How does it affect the way you build and distribute libraries?"
-  - "ABI (Application Binary Interface) stability in Swift means that the compiled code can interact with other Swift code compiled with different Swift versions. It's crucial for library developers as it ensures that libraries don't need to be recompiled for every new Swift release.
+
+   - "ABI (Application Binary Interface) stability in Swift means that the compiled code can interact with other Swift code compiled with different Swift versions. It's crucial for library developers as it ensures that libraries don't need to be recompiled for every new Swift release.
+
 - **Module Stability:** "Explain module stability in Swift. How does it help in maintaining and sharing Swift code across different Swift versions?"
-  - "Module stability allows for the creation of stable binary frameworks or modules in Swift, which can be used in various Swift projects regardless of the compiler version. This is particularly important when sharing compiled Swift modules across different projects."
+
+   - "Module stability allows for the creation of stable binary frameworks or modules in Swift, which can be used in various Swift projects regardless of the compiler version. This is particularly important when sharing compiled Swift modules across different projects."
 
 ### 8. Swift and C Interoperability
 - **Interoperability with C:** "Discuss how you integrate C libraries in Swift projects. What are the challenges you face with type bridging?"
-  - "Swift provides seamless interoperability with C libraries using Swift's import feature. Challenges include managing memory manually since Swift's safety features like ARC do not apply to C pointers. Bridging headers are often used to expose C functions to Swift."
+
+   - "Swift provides seamless interoperability with C libraries using Swift's import feature. Challenges include managing memory manually since Swift's safety features like ARC do not apply to C pointers. Bridging headers are often used to expose C functions to Swift."
+     
 - **Performance Considerations:** "When interfacing with C from Swift, what are key considerations to ensure performance is not adversely affected?"
+
   - "When using C from Swift, it's crucial to ensure that data types and function calls are optimized to prevent performance overhead. Using lightweight wrappers around C functions can help minimize the performance impact."
 
 
 ### 9. Advanced Error Handling
 - **Custom Error Handling Strategies:** "Can you describe a custom error handling system you've implemented in Swift? What considerations did you take into account to make it robust?"
+
   - "In complex systems, I implement a layered error handling strategy using enums and custom protocols that encapsulate different error contexts. This allows errors to be handled appropriately at different layers of the application, providing both local and global error recovery strategies."
 - **Error Propagation:** "How does error propagation work in complex systems, especially with asynchronous code paths in Swift?"
+
   - "In asynchronous code, error propagation is handled using async/await where functions are marked with throws and errors are propagated up the call stack using try await. This approach simplifies handling errors in complex asynchronous workflows."
 
