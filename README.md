@@ -37,8 +37,12 @@
 
 ### 1. Generics and Advanced Type Systems
 - **Complex Generics:** "Can you explain how you have used generics to solve a problem in your projects? What are the benefits and limitations of using generics in Swift?"
+  - "I've used generics to create highly reusable data structures and functions. For example, I developed a generic network layer that can handle various types of requests and responses without repeating code. The main benefit is code reusability and type safety, while a limitation is that it can sometimes complicate the design, making it harder for less experienced developers to understand."
 - **Type Erasure:** "Discuss what type erasure is and provide an example of where and why you might use it in Swift."
+  - "Type erasure in Swift allows us to work around limitations associated with protocols with associated types, making them more flexible. For example, I used type erasure to hide the specific type of a generic publisher in a reactive programming model, enabling it to be used more dynamically across the app."
+
 - **Associated Types:** "Explain associated types in protocols. How do they enable more flexible and reusable code?"
+  - "Associated types are used in defining protocols that can’t specify exact types of properties or methods until they’re adopted. They enable protocols to be very flexible. For example, in a protocol that requires a data source, the associated type allows each conformer to specify the type of data it will handle, thus customizing the protocol to its needs."
 
 ### 2. Advanced Memory Management
 - **Manual Memory Management:** "Discuss scenarios where you might use `unowned` or `weak` references in Swift. What are the implications of choosing one over the other?"
