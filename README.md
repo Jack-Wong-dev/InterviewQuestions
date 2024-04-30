@@ -51,11 +51,15 @@
   - "I use Instruments, particularly the Leaks and Allocation tools, to track down and fix memory leaks. A common practice is to review closure captures and delegate patterns, ensuring all references are weak where necessary, and using unowned safely."
 ### 3. Swift Runtime and Compilation
 - **Swift's Compilation Process:** "Explain how Swift code is compiled. What is the role of LLVM in the Swift compilation process?"
+  - "Swift code is compiled using the LLVM compiler framework, which converts Swift code into optimized machine code. LLVM performs several optimizations and finally compiles the Swift Intermediate Language (SIL) into binary code. This process ensures Swift's performance and type safety."
 - **Inline Attributes:** "Discuss the use of `@inline(__always)` and `@inline(never)` attributes in Swift. When would you use them, and what impact do they have on performance?"
+  - "The `@inline(__always)` attribute forces the compiler to inline a function to improve performance by eliminating function call overhead. Conversely, @inline(never) prevents inlining. These are used judiciously to balance between code size and speed, particularly in performance-critical code paths."
 
 ### 4. Metaprogramming and Reflection
 - **Reflection:** "How do you use Swift's Mirror API? Provide a practical example where reflection is necessary or beneficial."
+  - "Swift’s Mirror API allows for introspection of types at runtime, which is useful for debugging or when implementing serialization frameworks. For example, I used Mirror to develop a generic JSON serializer that can introspect model properties and serialize them without needing manual encoding logic."
 - **Dynamic Features:** "Swift is statically typed, but are there ways to achieve dynamic behavior similar to Objective-C's runtime features? How would you implement such functionality?"
+  - "While Swift does not support the same level of dynamic behavior as Objective-C, features like dynamicCallable and dynamicMemberLookup provide some capabilities. For interfacing with dynamic languages or APIs, such as scripting languages or JSON manipulation, these features are invaluable."
 
 ### 5. Advanced Concurrency
 - **Deadlock Avoidance:** "Discuss strategies to avoid deadlocks in concurrent programming with Swift."
