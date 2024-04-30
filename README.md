@@ -63,21 +63,32 @@
 
 ### 5. Advanced Concurrency
 - **Deadlock Avoidance:** "Discuss strategies to avoid deadlocks in concurrent programming with Swift."
+  - "To avoid deadlocks, I ensure that locks are well-ordered and avoid holding multiple locks at once. Additionally, using modern Swift Concurrency features like async/await and actors, which manage concurrency more safely, helps prevent such issues."
 - **Concurrency Design Patterns:** "What design patterns do you find most effective for building robust and scalable concurrent applications in Swift?"
-
+  - "In implementing concurrency, I often use the Actor model, especially in Swift 5.5 and above, because it encapsulates state in a way that it's only accessible via asynchronous methods, effectively preventing race conditions and making concurrent designs safer and more predictable."
+    
 ### 6. Advanced Swift Concurrency
 - **Actors and Data Races:** "Can you explain the actor model in Swift Concurrency? How do actors help prevent data races?"
+  - "Actors are a Swift feature that protect mutable state by ensuring that only one piece of code can access that state at a time. This model simplifies writing safe concurrent code as it avoids data races by design."
 - **Task Prioritization:** "How does task prioritization work in Swift Concurrency, and what are its implications for application performance?"
+  - "Swift's task prioritization allows tasks to be prioritized, ensuring critical work is processed faster. For instance, user-interactive tasks can be prioritized over background tasks. This helps in maintaining a responsive UI while performing background computations."
 
 ### 7. Module Stability and ABI
 - **ABI Stability:** "What is ABI stability in Swift, and why is it important? How does it affect the way you build and distribute libraries?"
+  - "ABI (Application Binary Interface) stability in Swift means that the compiled code can interact with other Swift code compiled with different Swift versions. It's crucial for library developers as it ensures that libraries don't need to be recompiled for every new Swift release.
 - **Module Stability:** "Explain module stability in Swift. How does it help in maintaining and sharing Swift code across different Swift versions?"
+  - "Module stability allows for the creation of stable binary frameworks or modules in Swift, which can be used in various Swift projects regardless of the compiler version. This is particularly important when sharing compiled Swift modules across different projects."
 
 ### 8. Swift and C Interoperability
 - **Interoperability with C:** "Discuss how you integrate C libraries in Swift projects. What are the challenges you face with type bridging?"
+  - "Swift provides seamless interoperability with C libraries using Swift's import feature. Challenges include managing memory manually since Swift's safety features like ARC do not apply to C pointers. Bridging headers are often used to expose C functions to Swift."
 - **Performance Considerations:** "When interfacing with C from Swift, what are key considerations to ensure performance is not adversely affected?"
+  - "When using C from Swift, it's crucial to ensure that data types and function calls are optimized to prevent performance overhead. Using lightweight wrappers around C functions can help minimize the performance impact."
+
 
 ### 9. Advanced Error Handling
 - **Custom Error Handling Strategies:** "Can you describe a custom error handling system you've implemented in Swift? What considerations did you take into account to make it robust?"
+  - "In complex systems, I implement a layered error handling strategy using enums and custom protocols that encapsulate different error contexts. This allows errors to be handled appropriately at different layers of the application, providing both local and global error recovery strategies."
 - **Error Propagation:** "How does error propagation work in complex systems, especially with asynchronous code paths in Swift?"
+  - "In asynchronous code, error propagation is handled using async/await where functions are marked with throws and errors are propagated up the call stack using try await. This approach simplifies handling errors in complex asynchronous workflows."
 
