@@ -165,3 +165,106 @@ In a complex user onboarding flow, I used SwiftUI's environment to pass down use
 
 </details>
 
+### Preference Keys
+What are preference keys in SwiftUI, and how can they be used to customize behavior or layout of views?
+
+<details>
+   <summary> Answer </summary>
+   Preference keys in SwiftUI allow views to communicate upwards in the view hierarchy. This is particularly useful for customizing behavior or layout based on the size, position, or properties of child views. For instance, you might use a preference key to pass the size of a child view up to its parent, which could then use this information to adjust other parts of the UI accordingly.
+</details> 
+
+### Layout Protocol
+Explain the layout protocol in SwiftUI. How can you create custom layouts using this protocol?
+
+<details>
+   <summary> Answer </summary>
+   The layout protocol in SwiftUI is used to define how views arrange themselves and their children. To create custom layouts, you can conform to the `Layout` protocol. This involves implementing the `sizeThatFits(_:in:)` and `placeSubviews(in:)` methods to measure and position child views respectively. 
+</details>
+
+### Structural Identity
+What is structural identity in SwiftUI, and how does it affect view updates?
+
+<details>
+   <summary> Answer </summary>
+   Structural identity in SwiftUI refers to how the framework identifies and distinguishes between views in the UI hierarchy. SwiftUI uses the structure of view declarations to optimize re-rendering processes. When the state changes, SwiftUI compares the new view structure with the old one to determine which parts of the UI need to be updated. This comparison relies on the view's properties and their values; if they are the same, SwiftUI will not re-invoke the view’s body, hence not redraw the view. This makes SwiftUI efficient but also requires careful management of view structures to avoid unnecessary updates. Mismanaging these can lead to performance issues, as SwiftUI might either update views too frequently or fail to update them when actually needed. Using stable identifiers with `id(_:)` can help manage this by explicitly specifying how views are uniquely identified.
+</details>
+
+### Conditional View Modifiers
+In the SwiftUI community, many people come up with their own version of a conditional view modifier. It allows you to take a view, and only apply a view modifier when the condition holds. 
+Why are conditional view modifiers considered a bad idea in SwiftUI?
+https://www.objc.io/blog/2021/08/24/conditional-view-modifiers/
+
+<details>
+   <summary> Answer </summary>
+Conditional view modifiers in SwiftUI can introduce problems related to view identity and performance because they can lead to unpredictable UI updates. When a view modifier is applied conditionally, SwiftUI may recreate the view rather than updating it, potentially leading to loss of internal state or unexpected behavior.
+
+For example, consider the following code snippet:
+
+```swift
+Text("Hello, World!")
+    .if(isHighlighted) {
+        $0.background(.blue)
+    } else {
+        $0.background(.clear)
+    }
+```
+
+In this example, changing `isHighlighted` would not just change the color; it could lead to the entire view being destroyed and recreated. SwiftUI views are structurally descriptive, which means the framework expects the hierarchy and modifiers of a view to be stable and only change in predictable ways. When a modifier is conditionally applied based on some state, SwiftUI's diffing algorithm might determine that the view has changed significantly enough to warrant a full reconstruction.
+
+
+This leads to several issues:
+1. **Performance Impacts:** Reconstructing views is more resource-intensive than simply updating properties on existing views.
+2. **Loss of State:** If the view holds any state internally or has focus, this state can be reset when the view is recreated.
+3. **Complex Debugging:** Bugs related to view recreation can be subtle and hard to trace, especially in complex UIs where many conditions might influence the presence of modifiers.
+
+To avoid these issues, it is advisable to keep the application of modifiers consistent and alter only their parameters if needed. For instance, it’s better to write:
+
+```swift
+Text("Hello, World!")
+    .background(isHighlighted ? .blue : .clear)
+```
+
+This keeps the view hierarchy stable and only changes the color parameter of the background modifier, leading to more predictable and efficient updates."
+</details>
+
+
+### Using GeometryReader Wisely
+Why should `GeometryReader` be used cautiously in SwiftUI, and what are the best practices for using it?
+
+<details>
+   <summary> Answer </summary>
+   `GeometryReader` is a powerful tool in SwiftUI for obtaining size and position information about a view's parent. However, it should be used cautiously because it can lead to complex and inefficient layouts. `GeometryReader` makes all the space available to it, which can disrupt the natural layout flow of SwiftUI and can cause performance issues due to excessive layout calculations. Best practices include:
+
+- Use `GeometryReader` only when absolutely necessary, such as when views need to adjust dynamically based on the size or position of their container.
+- Minimize the scope and use of `GeometryReader` by embedding it only around the views that specifically need the geometric data.
+- Consider alternative approaches such as using `flexible` frames, alignment guides, or even custom layout protocols if possible to achieve similar results without forcing a dependency on the parent's geometry.
+</details>
+
+
+### Dynamic Type and Accessibility
+How can developers ensure their SwiftUI apps support Dynamic Type and why is it important for accessibility?
+<details>
+   <summary> Answer </summary>
+   Supporting Dynamic Type in SwiftUI is crucial for making apps accessible to users with varying visual abilities. 
+   Developers can ensure support by using scalable, system-defined text styles rather than fixed font sizes. 
+   
+   For example, using `.font(.body)` or `.font(.headline)` automatically adjusts the font size according to the user’s accessibility settings. 
+   Developers should test their UIs with different Dynamic Type sizes to ensure layout and usability are maintained. 
+   They should also leverage modifiers like `.lineLimit(nil)` and `.fixedSize(horizontal: false, vertical: true)` to make text views flexible and adaptive to content size changes.
+</details>
+
+
+### Handling Complex Conditional Views
+What strategies can you use in SwiftUI to handle complex conditional views without cluttering the body property?
+
+<details>
+   <summary> Answer </summary>
+   In SwiftUI, complex conditional views can quickly clutter the `body` property if not managed well. To handle this cleanly, you can:
+   
+- Use helper functions or computed properties to build parts of the UI. This breaks down the view body into manageable chunks.
+- Implement custom `View` structs for parts of the interface that are conditionally displayed. This encapsulates the complexity and keeps the main view's body more readable.
+- Use `@ViewBuilder` to create inline conditional views. This can help maintain readability and focus within the main view logic.
+
+Separating complex conditional logic into smaller, well-defined views or functions helps in maintaining code readability, reusability, and simplifies debugging.
+</details>
+
