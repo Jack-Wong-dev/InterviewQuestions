@@ -185,6 +185,7 @@ Explain the layout protocol in SwiftUI. How can you create custom layouts using 
 Can you explain the concepts of structural identity and explicit identity in SwiftUI? Discuss their implications for view updates, particularly how inert view modifiers can be used to optimize performance and handle view changes.
 
 https://juniperphoton.substack.com/p/pro-to-swiftui-dive-into-the-view
+
 https://swiftwithmajid.com/2021/12/09/structural-identity-in-swiftui/
 
 <details>
