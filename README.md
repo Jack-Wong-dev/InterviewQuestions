@@ -1,4 +1,4 @@
-# InterviewQuestions
+# iOS Interview Questions
 
 ## For Junior/Mid Engineers
 
@@ -121,36 +121,45 @@
 ## Advanced SwiftUI Topics for Senior Developers
 
 ### SwiftUI's Environment and Environment Values
+Explain the concept of the SwiftUI environment. How do you use environment values to manage data flow and UI settings across your app?
 <details>
-<summary>Explain the concept of the SwiftUI environment. How do you use environment values to manage data flow and UI settings across your app?</summary>
+<summary> Answer </summary>
 
 The SwiftUI environment allows data and settings to be passed implicitly through the view hierarchy. Using the `@Environment` property wrapper, views can access data stored in environment values. For instance, I use environment values to manage themes, localization, and accessibility settings across an app. This reduces the need for explicit data passing via initializers, simplifying the code and improving modularity. Additionally, custom environment values can be defined to store app-specific settings, ensuring that all views have consistent access to these values without tightly coupling them to the view hierarchy.
 </details>
 
 ### MVVM in SwiftUI
+How do you implement the MVVM architecture in SwiftUI? Discuss how this pattern integrates with SwiftUI's reactive data flow.
+
 <details>
-<summary> How do you implement the MVVM architecture in SwiftUI? Discuss how this pattern integrates with SwiftUI's reactive data flow.</summary>
+<summary> Answer </summary>
 
 In SwiftUI, the MVVM architecture involves defining view models as observable objects that the views subscribe to. I define my view models with `@Published` properties for data that the view needs to react to. Views use `@ObservedObject` or `@StateObject` to bind to these view models. This setup allows the view to update automatically when the view model’s state changes, promoting a clean separation of business logic from UI code. The reactive data flow in SwiftUI works seamlessly with MVVM, as changes in the model layer propagate through the view model to update the UI with minimal boilerplate.
 </details>
 
 ### Adaptive Interfaces
+How do you design adaptive interfaces in SwiftUI that work across multiple device types and orientations?
 <details>
-<summary> How do you design adaptive interfaces in SwiftUI that work across multiple device types and orientations?</summary>
+<summary> Answer </summary>
 
 To create adaptive interfaces in SwiftUI, I utilize `GeometryReader` to make views responsive to the size and orientation of the device. I also use conditional modifiers based on the device's environment, such as `horizontalSizeClass` and `verticalSizeClass`, to adjust the layout dynamically. For example, in a dual-pane layout, I might switch from side-by-side to stacked based on the size class. This approach ensures that the interface is usable and aesthetically pleasing on everything from an iPhone SE to an iPad Pro.
 </details>
 
 ### Handling Different Device Sizes
+What strategies do you use in SwiftUI to handle different device sizes and ensure a consistent user experience across a range of iOS devices?
+
 <details>
-<summary> What strategies do you use in SwiftUI to handle different device sizes and ensure a consistent user experience across a range of iOS devices?</summary>
+<summary> Answer </summary>
 
 When handling different device sizes in SwiftUI, I focus on fluid layouts that adapt to any screen size. I frequently use stack views (`VStack`, `HStack`) with dynamic spacing and alignment options, and I leverage `Spacer` to create flexible spaces that adapt to the available room. Additionally, using `@ViewBuilder` allows me to conditionally include views based on the device’s characteristics, such as screen dimensions. To ensure consistency in user experience, I also test on real devices and simulators across all supported device families during development.
 </details>
 
 ### Advanced Use of SwiftUI's Environment
+
+Can you describe a complex scenario where you used SwiftUI's environment to simplify data handling or UI configuration across multiple views?
+
 <details>
-<summary> Can you describe a complex scenario where you used SwiftUI's environment to simplify data handling or UI configuration across multiple views?</summary>
+<summary> Answer </summary>
 
 In a complex user onboarding flow, I used SwiftUI's environment to pass down user progress data and UI preferences without manually injecting them into each view. I created custom environment keys to store the user's progress and preferences, and each view could then access and update this data as needed. This was particularly useful for maintaining state across multiple views and handling user inputs that affected the onboarding flow, such as theme settings or accessibility options, without cluttering the UI code with lots of callbacks or data passing.
 
