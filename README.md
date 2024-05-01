@@ -181,12 +181,23 @@ Explain the layout protocol in SwiftUI. How can you create custom layouts using 
    The layout protocol in SwiftUI is used to define how views arrange themselves and their children. To create custom layouts, you can conform to the `Layout` protocol. This involves implementing the `sizeThatFits(_:in:)` and `placeSubviews(in:)` methods to measure and position child views respectively. 
 </details>
 
-### Structural Identity
-What is structural identity in SwiftUI, and how does it affect view updates?
+### View Identity (Implicit/Structural Identity, Explicit Identity)
+Can you explain the concepts of structural identity and explicit identity in SwiftUI? Discuss their implications for view updates, particularly how inert view modifiers can be used to optimize performance and handle view changes.
+
+https://juniperphoton.substack.com/p/pro-to-swiftui-dive-into-the-view
+https://swiftwithmajid.com/2021/12/09/structural-identity-in-swiftui/
 
 <details>
    <summary> Answer </summary>
-   Structural identity in SwiftUI refers to how the framework identifies and distinguishes between views in the UI hierarchy. SwiftUI uses the structure of view declarations to optimize re-rendering processes. When the state changes, SwiftUI compares the new view structure with the old one to determine which parts of the UI need to be updated. This comparison relies on the view's properties and their values; if they are the same, SwiftUI will not re-invoke the view’s body, hence not redraw the view. This makes SwiftUI efficient but also requires careful management of view structures to avoid unnecessary updates. Mismanaging these can lead to performance issues, as SwiftUI might either update views too frequently or fail to update them when actually needed. Using stable identifiers with `id(_:)` can help manage this by explicitly specifying how views are uniquely identified.
+Structural identity in SwiftUI is the framework's default mechanism for identifying views based solely on their structure and properties within the view hierarchy. This approach allows SwiftUI to efficiently determine whether views need updating by comparing their structural definitions during each render cycle. For instance, if a view's properties and its position within the hierarchy remain unchanged, SwiftUI can intelligently skip re-rendering that view, optimizing performance.
+
+However, issues arise in dynamic interfaces where a view's content might change based on conditions, leading to potential unwanted animations and loss of view state. For example, toggling a view's state through conditional rendering can cause SwiftUI to recreate the view entirely, resulting in inefficiencies and loss of any transient state the view was holding.
+
+To mitigate these issues, using inert view modifiers, is an effective strategy. These modifiers, such as `.opacity` or `.padding`, allow properties to be adjusted without altering the structural identity of a view. For example, instead of conditionally rendering views with different properties, applying a condition directly to an inert modifier—such as adjusting opacity or padding based on a state—keeps the view's structural blueprint consistent. This consistency ensures that SwiftUI does not recreate the view but merely adjusts its rendering based on the new properties, thereby maintaining performance and avoiding unwanted animations.
+
+Explicit identity, on the other hand, is used when structural identity falls short, particularly in lists or collections where items might appear identical but represent different underlying data or need to maintain distinct states. By assigning a unique identifier to each view, developers can override the structural identity to ensure that SwiftUI tracks each view's lifecycle and state individually, regardless of structural similarities. This is crucial in scenarios like dynamic lists, where reordering or updating content can otherwise lead to incorrect view behaviors and state issues.
+
+Understanding when to rely on structural identity and when to enforce explicit identity is key to building efficient and robust SwiftUI applications. Utilizing inert view modifiers to maintain structural identity without sacrificing the flexibility needed for dynamic updates is a practical approach that enhances both performance and user experience.
 </details>
 
 ### Conditional View Modifiers
